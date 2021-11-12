@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {  //la función recibe una instancia de sequelize
-    sequelize.define('Tipo', {
+    return sequelize.define('Tipo', {
 
     name: {
         type: DataTypes.ENUM,

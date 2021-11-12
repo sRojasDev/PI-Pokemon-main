@@ -1,10 +1,10 @@
-const {Router}= require('express');
+//imports
+const {Router}= require('express')
 const router = Router();
+const contrTypes= require('../controllers/ctrType');  //controlador
 
-router.get( '/types',(req,res)=>{
-        console.log("todo bien");
-        res.send("Funciona la ruta mostrar types");
-    });
+// rutas
+router.get( '/types',contrTypes); 
 
-
+//exports
 module.exports = router;

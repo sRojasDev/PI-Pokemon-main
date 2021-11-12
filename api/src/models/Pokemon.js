@@ -1,9 +1,10 @@
 const { DataTypes } = require('sequelize');
+const { options } = require('superagent');
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define('pokemon', {
+ return sequelize.define('pokemon', {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -16,27 +17,27 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.UUIDV1, 
     },
     vida: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     fuerza: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     defensa: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     velocidad: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     altura: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     peso: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   });
