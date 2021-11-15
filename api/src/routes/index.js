@@ -3,7 +3,7 @@ const router = Router();
 // Importar todos los routers;
 const pokemonRouter = require('./pokemon.js');
 const typeRouter = require('./tipo');
-const crtType= require('../controllers/ctrType');
+
 
 //declarar las rutas
 router.use("/", pokemonRouter);
