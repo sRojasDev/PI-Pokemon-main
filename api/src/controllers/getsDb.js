@@ -9,7 +9,12 @@ function getById_Bd (id){
 return  promise;
 }
 function getAll_Bd (){
-    let promise = Pokemon.findAll()
+    let promise = Pokemon.findAll({
+        include:{
+            model: Tipo,
+            attributes:['name'],
+        }
+    })
 return  promise;
 }  
     // return Pokemon.findAll({

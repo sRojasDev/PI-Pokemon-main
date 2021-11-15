@@ -5,11 +5,11 @@ const {
     POK_QUERY_API, //concatenar name
 }= require("../../config/endPoints");  //endpoint para las llamadas.
 
-async function Detail(arr) {
+async function Detail(arr, stop= 40) {
     let countBreak =0;
     let i=0;
     let result=[];
-    while(countBreak<41 && i<arr.length){
+    while(countBreak<=stop && i<arr.length){
         let infoPk = await axios.get(arr[i].url)
             .then(el =>{
                 return {
@@ -54,18 +54,16 @@ async function asyncGetApi( urlpath= ALL_POKEMONS_API, dato = null) {
                         }})
             let complemento= await asyncGetAux(info.link);
             const arreglo= info.result.concat(complemento);
-            return await Detail(arreglo);
+            return await Detail(arreglo, 26);
 
         case POK_PARAMS_API:
-            let apiParams = await axios.get(`${POK_PARAMS_API}${dato}`);
             console.log("desde params api"+ dato);
-            const resultParam = apiParams.data;
+            const resultParam = Detail([{url:`${POK_PARAMS_API}${dato}`}], 1);
             return resultParam
             
         case POK_QUERY_API:
-            const apiQuery = await axios.get(`${urlpath}name=${dato}`)
             console.log("desde query api"+dato);
-            const resultQuery = apiQuery.data;
+            const resultQuery=  Detail([{url:`${urlpath}name=${dato}`}], 1);
             return resultQuery
         default:{
             console.log("entró al default");

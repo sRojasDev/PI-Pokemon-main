@@ -1,6 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 const { Pokemon } = require('../db.js'); //importo modelo conectado
 const { ALL_POKEMONS_API } = require("../../config/endPoints"); //importo path principal
+const { DataTypes } = require('sequelize');
 
 const { getByName_Bd,getAll_Bd, getById_Bd}= require('./getsDb.js');// funciones get base de datos
 const {asyncGetApi} = require('./getsApi.js'); 
@@ -9,10 +10,6 @@ const {asyncGetApi} = require('./getsApi.js');
 async function getAllPoke(req,res,next){  
     try {let listaCompleta=await Promise.all( [getAll_Bd(),asyncGetApi(ALL_POKEMONS_API,null)])
         let unida= listaCompleta.flat();
-    // const arrPromesas= unida.map( p => {
-    //         console.log(p.url);
-    //         return new Promise( Detail(p.url))
-    //     });
     res.send(unida); 
     }   
     catch{(err=> next(err));}    
@@ -21,21 +18,27 @@ async function getAllPoke(req,res,next){
 //mostrar por id
 function getPokemonById(req,res,next){  
     let id = req.params.id;
-    if (id){
-        let resolucion= Promise.all( [getById_Bd(id),asyncGetApi(`${ALL_POKEMONS_API}/`,id)]) 
+    console.log("llegó al ckt "+ id);
+    // res.send("respuesta"+id);
+    if (id && id.length>10){
+        let resolucionBd= Promise.all([getById_Bd(id)])    //,asyncGetApi(`${ALL_POKEMONS_API}/`,name)]) // en esta línea
+        .then( (pokemons) => res.send(pokemons[0]))
         .catch((err)=>  next(err));
-        return resolucion;
+        return resolucionBd;
     }
     else{
-        res.send("se nesecita un nombre válido");
-    }  
+        let resolucionApi= Promise.all([asyncGetApi(`${ALL_POKEMONS_API}/`,id)])    //,asyncGetApi(`${ALL_POKEMONS_API}/`,name)]) // en esta línea
+        .then( (pokemon) => res.send(pokemon.flat()[0]))
+        .catch((err)=>  next(err));
+        return resolucionApi;
+    }
 }
 //mostrar por nombre
 function getPokemonByName(req,res,next){
     const {name}= req.query;            // ojo se recibe por query pero la consulta a la API se hace por params
     if (name){
         let resolucion= Promise.all( [getByName_Bd(name),asyncGetApi(`${ALL_POKEMONS_API}/`,name)]) // en esta línea
-        .then( (pokemons) => res.send(pokemons))
+        .then( (pokemons) => res.send(pokemons.flat()))
         .catch((err)=>  next(err));
         return resolucion;
     }
