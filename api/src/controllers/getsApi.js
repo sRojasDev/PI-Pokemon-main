@@ -9,7 +9,7 @@ async function Detail(arr, stop= 40) {
     let countBreak =0;
     let i=0;
     let result=[];
-    while(countBreak<=stop && i<arr.length){
+    while(countBreak<stop && i<arr.length){
         let infoPk = await axios.get(arr[i].url)
             .then(el =>{
                 return {
@@ -26,8 +26,8 @@ async function Detail(arr, stop= 40) {
                     peso: el.data.weight,
                 }
             })
-        i+=1;
-        countBreak = countBreak+1;
+        i= i+1;
+        countBreak++;
         result=[...result, infoPk];
     }
     
@@ -54,7 +54,8 @@ async function asyncGetApi( urlpath= ALL_POKEMONS_API, dato = null) {
                         }})
             let complemento= await asyncGetAux(info.link);
             const arreglo= info.result.concat(complemento);
-            return await Detail(arreglo, 26);
+            let freno= 40 - dato;
+            return await Detail(arreglo, freno);
 
         case POK_PARAMS_API:
             console.log("desde params api"+ dato);
@@ -68,10 +69,7 @@ async function asyncGetApi( urlpath= ALL_POKEMONS_API, dato = null) {
         default:{
             console.log("entró al default");
             let infor = await axios.get(urlpath)
-            .then(el =>{
-                return {
-                    result: el.data.results,
-                }})
+            .then(el => el.data.results)
             return infor
         }
     }
@@ -79,4 +77,5 @@ async function asyncGetApi( urlpath= ALL_POKEMONS_API, dato = null) {
 module.exports= {
     Detail,
     asyncGetApi,
+    asyncGetAux,
 }

@@ -1,4 +1,4 @@
-const { Pokemon } = require('../db.js'); //importo modelo conectado
+const { Pokemon, Tipo } = require('../db.js'); //importo modelo conectado
 
 function getByName_Bd (name){
     let promise = Pokemon.findAll({ where: { name: name }})

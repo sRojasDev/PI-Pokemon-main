@@ -1,18 +1,19 @@
 const { v4: uuidv4 } = require('uuid');
-const { Pokemon } = require('../db.js'); //importo modelo conectado
-const { ALL_POKEMONS_API } = require("../../config/endPoints"); //importo path principal
-const { DataTypes } = require('sequelize');
+const { Pokemon, Tipo } = require('../db.js'); //importo modelo conectado
+const { ALL_POKEMONS_API, STOP } = require("../../config/endPoints"); //importo path principal
+const { DataTypes, where } = require('sequelize');
 
 const { getByName_Bd,getAll_Bd, getById_Bd}= require('./getsDb.js');// funciones get base de datos
 const {asyncGetApi} = require('./getsApi.js'); 
 
+let freno=0;
+
 //mostrar todos
-async function getAllPoke(req,res,next){  
-    try {let listaCompleta=await Promise.all( [getAll_Bd(),asyncGetApi(ALL_POKEMONS_API,null)])
-        let unida= listaCompleta.flat();
-    res.send(unida); 
-    }   
-    catch{(err=> next(err));}    
+function getAllPoke(req,res,next){   
+    let resolucionAll= Promise.all([getAll_Bd(),asyncGetApi(ALL_POKEMONS_API,freno)])
+        .then( (pokemones) => res.send(pokemones.flat()))
+        .catch((err)=>  next(err));
+        return resolucionAll;     
 }
 
 //mostrar por id
@@ -48,14 +49,38 @@ function getPokemonByName(req,res,next){
 }
 
 //agregar por body
-function addPokemon(req, res, next){
-    let newPokemon= req.body;
-    return Pokemon.create({
-        ...newPokemon,
+
+async function addPokemon(req, res, next){
+    freno++;
+    let { name,
+        vida,
+        fuerza,
+        defensa,
+        velocidad,
+        altura,
+        peso,
+        tipos,
+    }= req.body;
+    let creado= await Pokemon.create({
+        name,
+        vida,
+        fuerza,
+        defensa,
+        velocidad,
+        altura,
+        peso,
         id: uuidv4(),
         })
-        .then( (pokemons) => res.send(pokemons))
-        .catch((err)=>  next(err));
+    let tiposBd= await Tipo.findAll({
+        where: {name: tipos}
+    }).catch(err=>next(err));
+    
+    creado.addTipo(tiposBd);
+    console.log(creado);
+    res.send(creado);
+    
+        // .then( (pokemons) => res.send(pokemons))
+        // .catch((err)=>  next(err));
 }
 module.exports= {
     getAllPoke,
