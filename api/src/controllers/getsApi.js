@@ -13,8 +13,8 @@ async function Detail(arr, stop= 40) {
         let infoPk = await axios.get(arr[i].url)
             .then(el =>{
                 return {
-                    imagen: {fija: el.data.sprites.versions["generation-iv"].platinum.front_default,
-                            gif: el.data.sprites.versions["generation-v"]["black-white"].animated.front_default},
+                    imagen: el.data.sprites.versions["generation-iv"].platinum.front_default,
+                    imagengif: el.data.sprites.versions["generation-v"]["black-white"].animated.front_default,
                     nombre: el.data.name,
                     tipos: el.data.types.map(e=> e.type.name),   //types[0].type.name
                     id: el.data.id,

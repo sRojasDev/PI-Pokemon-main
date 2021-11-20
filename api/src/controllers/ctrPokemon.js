@@ -38,7 +38,7 @@ function getPokemonById(req,res,next){
 function getPokemonByName(req,res,next){
     const {name}= req.query;            // ojo se recibe por query pero la consulta a la API se hace por params
     if (name){
-        let resolucion= Promise.all( [getByName_Bd(name),asyncGetApi(`${ALL_POKEMONS_API}/`,name)]) // en esta línea
+        let resolucion= Promise.all( [asyncGetApi(`${ALL_POKEMONS_API}/`,name),getByName_Bd(name)]) // en esta línea
         .then( (pokemons) => res.send(pokemons.flat()))
         .catch((err)=>  next(err));
         return resolucion;
@@ -52,7 +52,7 @@ function getPokemonByName(req,res,next){
 
 async function addPokemon(req, res, next){
     freno++;
-    let { name,
+    let { nombre,
         vida,
         fuerza,
         defensa,
@@ -62,7 +62,7 @@ async function addPokemon(req, res, next){
         tipos,
     }= req.body;
     let creado= await Pokemon.create({
-        name,
+        nombre,
         vida,
         fuerza,
         defensa,

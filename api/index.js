@@ -19,9 +19,11 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
+const {getTypes} = require('./src/controllers/getTipes.js');
 const { PORT_BACK } = process.env;
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
+  getTypes();
   server.listen(PORT_BACK, () => {
     console.log(`%s listening at ${PORT_BACK} `); // eslint-disable-line no-console
   });

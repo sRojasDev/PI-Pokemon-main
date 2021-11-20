@@ -5,9 +5,13 @@ const { options } = require('superagent');
 module.exports = (sequelize) => {
   // defino el modelo
  return sequelize.define('pokemon', {
-    name: {
+    nombre: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    imagen: {
+      type: DataTypes.STRING,
+      defaultValue:""
     },
     id: {
       type: DataTypes.UUID,
