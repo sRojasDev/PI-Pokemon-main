@@ -40,6 +40,11 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       
     },
+    ofDB:{
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
     peso: {
       type: DataTypes.INTEGER,
       
