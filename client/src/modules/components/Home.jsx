@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterPokeByStatus, getPokemons, filterPokeByOrigin } from '../../redux/actions';
+import { filterPokeByStatus, getPokemons, filterPokeByOrigin, OrderByName } from '../../redux/actions';
 //import Card from './Card/Card';
 import { Link } from 'react-router-dom';
 import Paginado from './Paginado';
@@ -12,12 +12,13 @@ import CardsPoke from './CardsPoke';
 export default function Home() {
     const dispatch = useDispatch();
     const allPokemons = useSelector((state)=>state.pokemons);
-
+    const cantPropios = useSelector((state)=>state.pokemons);
     // let arrPrimeros=allPokemons.slice(0,9);
     // let arrRestantes=allPokemons.slice(9); 
     
     const [currentPage, setCurrentPage]= useState(1);
     const [pokemonsPerPage, setPokemonsPerPage]= useState(12);
+    const[order, setOrder]=useState("");
     const indexOfLast = currentPage * pokemonsPerPage; //  
     const indexOfFirst = indexOfLast - pokemonsPerPage;
     const currentPokemons= allPokemons && allPokemons.slice(indexOfFirst,indexOfLast);
@@ -52,10 +53,18 @@ export default function Home() {
         console.log("entró al handle");
     }
     function handleFilteredState(e){
+        e.preventDefault();
         dispatch(filterPokeByStatus(e.target.value));
     }
     function handleFilteredOrigin(e){
+        e.preventDefault();
         dispatch(filterPokeByOrigin(e.target.value));
+    }
+    function handleOrderAlf(e){
+        e.preventDefault();
+        dispatch(OrderByName(e.target.value));
+        setCurrentPage(1);
+        setOrder(`Ordenado ${e.target.value}`);
     }
     
         
@@ -97,9 +106,9 @@ export default function Home() {
                 </select>
                 </div>
                 <div>
-                    <select name="Alfabetico" id="Alfabetico">
-                        <option value="A_Z"> Acendente a-Z </option>
-                        <option value="Z_A"> Decendente z-A </option>
+                    <select name="Alfabetico" id="Alfabetico"  onChange={e=>handleOrderAlf(e)}>
+                        <option value="asc"> Acendente a-Z </option>
+                        <option value="des"> Decendente z-A </option>
                     </select>
                 </div>
                 <Paginado pokemonsPerPage={pokemonsPerPage} allPokemons={ allPokemons &&allPokemons.length} paginado={paginado}></Paginado>

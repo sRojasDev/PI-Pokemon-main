@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
     },
     imagen: {
       type: DataTypes.STRING,
-      defaultValue:""
+      defaultValue:"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/132.gif"
     },
     id: {
       type: DataTypes.UUID,

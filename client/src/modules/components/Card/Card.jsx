@@ -7,7 +7,7 @@ export default function Card({nombre, tipos, imagen, propio,key}){
     return (
         
         <div className="targeta" > 
-            <img src={imagen} alt="./pokeball.png" width= "130px" />
+            <img src={imagen} alt="./pokeball.png"  />
             <h3>{nombre}</h3>
             <h4>{tipos}</h4>
         </div>
@@ -17,7 +17,7 @@ export default function Card({nombre, tipos, imagen, propio,key}){
         return(
         
             <div className="targeta" key={"0"+key} >
-                <img src={imagen} alt="./pokeball.png" width= "130px" />
+                <img src={imagen} alt="./pokeball.png"/>
                 <h3>{nombre}</h3>
                 <h4>{tipos.map(el=>el.name)}</h4>
             </div>

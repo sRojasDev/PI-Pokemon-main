@@ -4,6 +4,7 @@ import { POKEMONS } from '../../modules/const';
 export const GET_POKEMONS="GET_POKEMONS";
 export const FILTER_BY_STATUS="FILTER_BY_STATUS";
 export const FILTER_BY_ORIGIN="FILTER_BY_ORIGIN";
+export const ORDER_BY_NAME="ORDER_BY_NAME";
 
 
 export function getPokemons() {
@@ -28,6 +29,13 @@ export function filterPokeByOrigin(payload) {
     console.log(payload);
     return {
         type:FILTER_BY_ORIGIN,
+        payload: payload,
+    }
+}
+export function OrderByName(payload) {
+    console.log(payload);
+    return {
+        type:ORDER_BY_NAME, 
         payload: payload,
     }
 }
