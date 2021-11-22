@@ -1,9 +1,8 @@
-import { FILTER_BY_ORIGIN, FILTER_BY_STATUS, GET_POKEMONS, ORDER_BY_NAME } from "../actions";
+import { FILTER_BY_ORIGIN, FILTER_BY_STATUS, GET_POKEMONS, ORDER_BY_FORCE, ORDER_BY_NAME } from "../actions";
 
 const initialState={
     pokemons:[],
     allPokemons:[],
-    propios: 0,
 }
 
 function rootReducer( state =initialState, action){
@@ -17,16 +16,9 @@ function rootReducer( state =initialState, action){
         case FILTER_BY_STATUS:
             const allPokemons =state.allPokemons;
             const stateFilter= action.payload === 'All'? allPokemons : allPokemons.filter(el=> {
-                console.log(el);
-                return el.tipos.includes(action.payload);
+                if(el.hasOwnProperty("ofDB")) return  el.tipos.filter(tip=>{ return tip.name===action.payload});
+                if(el.tipos.includes(action.payload)) return el;
             })
-            if (action.payload==="propio") {
-                return {
-                    ...state,
-                    pokemons:stateFilter,
-                    propios: stateFilter.length,
-                }
-            }
             return {
                 ...state,
                 pokemons:stateFilter,
@@ -38,12 +30,31 @@ function rootReducer( state =initialState, action){
                 if(action.payload==="propio" && el.hasOwnProperty("ofDB")) return el;
                 
                 if(!el.hasOwnProperty("ofDB") && action.payload==="existente" ) return el;
+                return 
             })
             return{
                 ...state,
                 pokemons:stateFiltered,
             }
-        case ORDER_BY_NAME: 
+        case ORDER_BY_FORCE: 
+            let ordenadoPorFuerza= action.payload=== "asc"? 
+            state.pokemons.sort(function(a,b){
+                if ((a.fuerza-b.fuerza) < 0) return -1;
+                if ((a.fuerza - b.fuerza)>0) return 1;
+                if (a.fuerza === b.fuerza) return 0;
+                return("nada");
+            }
+            ) : state.pokemons.sort(function(a,b){
+                if ((a.fuerza-b.fuerza) > 0) return -1;
+                if ((a.fuerza - b.fuerza)<0) return 1;
+                if (a.fuerza === b.fuerza) return 0;
+                return("nada");
+            })
+            return {
+                ...state,
+                pokemons:ordenadoPorFuerza,
+            }
+        case ORDER_BY_NAME:
             let arrOrdered= action.payload=== "asc"? 
             state.pokemons.sort(function(a,b){
                 if (a.nombre.toLowerCase() < b.nombre.toLowerCase()) return -1;
@@ -59,7 +70,6 @@ function rootReducer( state =initialState, action){
                 ...state,
                 pokemons:arrOrdered,
             }
-
         default:
             console.log("entro al default reducer");
             return state

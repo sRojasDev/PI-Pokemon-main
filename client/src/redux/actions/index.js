@@ -5,6 +5,7 @@ export const GET_POKEMONS="GET_POKEMONS";
 export const FILTER_BY_STATUS="FILTER_BY_STATUS";
 export const FILTER_BY_ORIGIN="FILTER_BY_ORIGIN";
 export const ORDER_BY_NAME="ORDER_BY_NAME";
+export const ORDER_BY_FORCE="ORDER_BY_FORCE";
 
 
 export function getPokemons() {
@@ -33,9 +34,15 @@ export function filterPokeByOrigin(payload) {
     }
 }
 export function OrderByName(payload) {
-    console.log(payload);
     return {
         type:ORDER_BY_NAME, 
+        payload: payload,
+    }
+}
+export function OrderByForce(payload) {
+    console.log(payload);
+    return {
+        type:ORDER_BY_FORCE, 
         payload: payload,
     }
 }

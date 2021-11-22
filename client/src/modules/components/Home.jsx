@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterPokeByStatus, getPokemons, filterPokeByOrigin, OrderByName } from '../../redux/actions';
+import { filterPokeByStatus, getPokemons, filterPokeByOrigin, OrderByName, OrderByForce } from '../../redux/actions';
 //import Card from './Card/Card';
 import { Link } from 'react-router-dom';
 import Paginado from './Paginado';
@@ -12,7 +12,7 @@ import CardsPoke from './CardsPoke';
 export default function Home() {
     const dispatch = useDispatch();
     const allPokemons = useSelector((state)=>state.pokemons);
-    const cantPropios = useSelector((state)=>state.pokemons);
+    
     // let arrPrimeros=allPokemons.slice(0,9);
     // let arrRestantes=allPokemons.slice(9); 
     
@@ -22,9 +22,9 @@ export default function Home() {
     const indexOfLast = currentPage * pokemonsPerPage; //  
     const indexOfFirst = indexOfLast - pokemonsPerPage;
     const currentPokemons= allPokemons && allPokemons.slice(indexOfFirst,indexOfLast);
-
+    
     const variacion= (currentPage)=>{
-        let cantidad= 12;
+        let cantidad=12;
         if (currentPage===1){
             cantidad=9;
         }
@@ -50,6 +50,7 @@ export default function Home() {
     function handleClick(e){
         e.preventDefault();
         dispatch(getPokemons());
+        setCurrentPage(1);
         console.log("entró al handle");
     }
     function handleFilteredState(e){
@@ -63,6 +64,12 @@ export default function Home() {
     function handleOrderAlf(e){
         e.preventDefault();
         dispatch(OrderByName(e.target.value));
+        setCurrentPage(1);
+        setOrder(`Ordenado ${e.target.value}`);
+    }
+    function handleOrderForce (e){
+        e.preventDefault();
+        dispatch(OrderByForce(e.target.value));
         setCurrentPage(1);
         setOrder(`Ordenado ${e.target.value}`);
     }
@@ -109,6 +116,12 @@ export default function Home() {
                     <select name="Alfabetico" id="Alfabetico"  onChange={e=>handleOrderAlf(e)}>
                         <option value="asc"> Acendente a-Z </option>
                         <option value="des"> Decendente z-A </option>
+                    </select>
+                </div>
+                <div>
+                    <select name="OrdenFuerza" id="OrdenFuerza"  onChange={e=>handleOrderForce(e)}>
+                        <option value="asc"> Acendente - Por fuerza </option>
+                        <option value="des"> Decendente - Por fuerza </option>
                     </select>
                 </div>
                 <Paginado pokemonsPerPage={pokemonsPerPage} allPokemons={ allPokemons &&allPokemons.length} paginado={paginado}></Paginado>
