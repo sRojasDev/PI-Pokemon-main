@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
 const { Pokemon, Tipo } = require('../db.js'); //importo modelo conectado
-const { ALL_POKEMONS_API, STOP } = require("../../config/endPoints"); //importo path principal
+const { ALL_POKEMONS_API} = require("../../config/endPoints"); //importo path principal
 const { DataTypes, where } = require('sequelize');
 
 const { getByName_Bd,getAll_Bd, getById_Bd}= require('./getsDb.js');// funciones get base de datos
@@ -38,7 +38,7 @@ function getPokemonById(req,res,next){
 function getPokemonByName(req,res,next){
     const {name}= req.query;            // ojo se recibe por query pero la consulta a la API se hace por params
     if (name){
-        let resolucion= Promise.all( [asyncGetApi(`${ALL_POKEMONS_API}/`,name),getByName_Bd(name)]) // en esta línea
+        let resolucion= Promise.all( [asyncGetApi(`${ALL_POKEMONS_API}/`,name, next),getByName_Bd(name)]) // en esta línea
         .then( (pokemons) => res.send(pokemons.flat()))
         .catch((err)=>  next(err));
         return resolucion;

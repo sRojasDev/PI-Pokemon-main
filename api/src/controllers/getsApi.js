@@ -5,7 +5,7 @@ const {
     POK_QUERY_API, //concatenar name
 }= require("../../config/endPoints");  //endpoint para las llamadas.
 
-async function Detail(arr, stop= 40) {
+async function Detail(arr, stop= 40,next) {
     let countBreak =0;
     let i=0;
     let result=[];
@@ -26,6 +26,10 @@ async function Detail(arr, stop= 40) {
                     peso: el.data.weight,
                 }
             })
+            .catch(err => {
+                console.log(err);
+                next(err);
+            });
         i= i+1;
         countBreak++;
         result=[...result, infoPk];
@@ -43,7 +47,7 @@ async function asyncGetAux(urlAux) {
             return inform.result
 } 
 
-async function asyncGetApi( urlpath= ALL_POKEMONS_API, dato = null) {
+async function asyncGetApi( urlpath= ALL_POKEMONS_API, dato = null, next) {
     switch (urlpath){
         case ALL_POKEMONS_API:
             let info = await axios.get(urlpath)
@@ -59,7 +63,7 @@ async function asyncGetApi( urlpath= ALL_POKEMONS_API, dato = null) {
 
         case POK_PARAMS_API:
             console.log("desde params api"+ dato);
-            const resultParam = Detail([{url:`${POK_PARAMS_API}${dato}`}], 1);
+            const resultParam = Detail([{url:`${POK_PARAMS_API}${dato}`}], 1,next);
             return resultParam
             
         case POK_QUERY_API:

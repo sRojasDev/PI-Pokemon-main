@@ -1,4 +1,4 @@
-import { FILTER_BY_ORIGIN, FILTER_BY_STATUS, GET_POKEMONS, ORDER_BY_FORCE, ORDER_BY_NAME } from "../actions";
+import { FILTER_BY_ORIGIN, FILTER_BY_STATUS, GET_POKEMONS, GET_POKE_BY_NAME, ORDER_BY_FORCE, ORDER_BY_NAME } from "../actions";
 
 const initialState={
     pokemons:[],
@@ -12,7 +12,19 @@ function rootReducer( state =initialState, action){
                 ...state,
                 pokemons: action.payload,
                 allPokemons: action.payload,
+                error:false,
             } 
+        case GET_POKE_BY_NAME:
+            if(!action.payload || action.payload[0]=== null){
+                return {
+                    ...state,
+                    error:true,
+                }
+            } else{
+            return {
+                ...state,
+                pokemons:action.payload,
+            }}
         case FILTER_BY_STATUS:
             const allPokemons =state.allPokemons;
             const stateFilter= action.payload === 'All'? allPokemons : allPokemons.filter(el=> {

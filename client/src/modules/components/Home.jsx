@@ -2,17 +2,18 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterPokeByStatus, getPokemons, filterPokeByOrigin, OrderByName, OrderByForce } from '../../redux/actions';
-//import Card from './Card/Card';
+import SearchBar from './SearchBar';
 import { Link } from 'react-router-dom';
 import Paginado from './Paginado';
 import CardsPoke from './CardsPoke';
+import RenderError from './renderError';
 
 
 
 export default function Home() {
     const dispatch = useDispatch();
     const allPokemons = useSelector((state)=>state.pokemons);
-    
+    const notFound=useSelector((state)=>state.error);
     // let arrPrimeros=allPokemons.slice(0,9);
     // let arrRestantes=allPokemons.slice(9); 
     
@@ -72,8 +73,24 @@ export default function Home() {
         dispatch(OrderByForce(e.target.value));
         setCurrentPage(1);
         setOrder(`Ordenado ${e.target.value}`);
+        console.log(order);
     }
-    
+    if (notFound){ return(
+        <div>
+            <p>Home Pokemon</p>
+            <button onClick={e=>{handleClick(e)}}>Todos</button>
+            <div>
+                <select name="origen" id="origen" onChange={e => handleFilteredOrigin(e)} >
+                    <option value="All">Todos</option>
+                    <option value="propio">Creados</option>
+                    <option value="existente">Existentes</option>
+                </select>
+            </div>
+            <div>
+            <RenderError/>
+            </div> 
+        </div>
+    ) }
         
     return (
         <div>
@@ -125,22 +142,11 @@ export default function Home() {
                     </select>
                 </div>
                 <Paginado pokemonsPerPage={pokemonsPerPage} allPokemons={ allPokemons &&allPokemons.length} paginado={paginado}></Paginado>
-                <div>
+                <SearchBar/>
+                
                 <CardsPoke currentP={currentPage} array={currentPokemons} />
-                </div>
+                
+
             </div>
         )
 } 
-
-
-    {/* {arrPrimeros?.map(pok => {
-                        console.log(pok.id);
-                        console.log(pok.hasOwnProperty('imagen'));
-                        console.log(pok); 
-                        return <Fragment key={pok.id}>
-                                        <Link to={"pokemons/"+pok.id}>
-                                        <Card nombre={pok.nombre} imagen={pok.imagen} tipos={pok.tipos} key={pok.id} propio={pok.hasOwnProperty('Tipos')} dbTipo={pok.Tipos} />
-                                        </Link>
-                                    </Fragment>
-                        })
-                    }     */}
