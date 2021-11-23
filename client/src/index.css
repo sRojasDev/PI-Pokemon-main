@@ -5,6 +5,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-size:contain;
+  background-position: center;
+  background-attachment:fixed;
+  background:linear-gradient(to top,rgba(5,7,12,0.50),rgba(5,7,12,0.30)),
+    url("./backpoke.jpg");
 }
 
 code {

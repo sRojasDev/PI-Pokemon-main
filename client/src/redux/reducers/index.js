@@ -1,8 +1,9 @@
-import { FILTER_BY_ORIGIN, FILTER_BY_STATUS, GET_POKEMONS, GET_POKE_BY_NAME, ORDER_BY_FORCE, ORDER_BY_NAME } from "../actions";
+import { FILTER_BY_ORIGIN, FILTER_BY_STATUS, GET_POKEMONS, GET_POKE_BY_NAME, GET_TYPES, ORDER_BY_FORCE, ORDER_BY_NAME, POST_POKEMON } from "../actions";
 
 const initialState={
     pokemons:[],
     allPokemons:[],
+    tipos:[],
 }
 
 function rootReducer( state =initialState, action){
@@ -14,6 +15,10 @@ function rootReducer( state =initialState, action){
                 allPokemons: action.payload,
                 error:false,
             } 
+        case POST_POKEMON:
+            return{ 
+                ...state,
+            }
         case GET_POKE_BY_NAME:
             if(!action.payload || action.payload[0]=== null){
                 return {
@@ -82,6 +87,13 @@ function rootReducer( state =initialState, action){
                 ...state,
                 pokemons:arrOrdered,
             }
+        case GET_TYPES:
+            console.log(action.payload);
+            return{
+                ...state,
+                tipos: action.payload,
+            }
+
         default:
             console.log("entro al default reducer");
             return state

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import Paginado from './Paginado';
 import CardsPoke from './CardsPoke';
 import RenderError from './renderError';
+import "./home.css";
 
 
 
@@ -143,9 +144,9 @@ export default function Home() {
                 </div>
                 <Paginado pokemonsPerPage={pokemonsPerPage} allPokemons={ allPokemons &&allPokemons.length} paginado={paginado}></Paginado>
                 <SearchBar/>
-                
+                <div className="grid-fluid" >
                 <CardsPoke currentP={currentPage} array={currentPokemons} />
-                
+                </div>
 
             </div>
         )
