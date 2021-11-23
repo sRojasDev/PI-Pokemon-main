@@ -1,0 +1,8 @@
+.danger {
+    border: red 1px solid;
+}
+span {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}

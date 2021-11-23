@@ -2,7 +2,7 @@ import axios from 'axios';
 import { POKEMONS } from '../../modules/const';
 
 export const GET_POKEMONS="GET_POKEMONS";
-export const FILTER_BY_STATUS="FILTER_BY_STATUS";
+export const FILTER_BY_TYPE="FILTER_BY_TYPE";
 export const FILTER_BY_ORIGIN="FILTER_BY_ORIGIN";
 export const ORDER_BY_NAME="ORDER_BY_NAME";
 export const ORDER_BY_FORCE="ORDER_BY_FORCE";
@@ -22,10 +22,10 @@ export function getPokemons() {
             });
     }
 }
-export function filterPokeByStatus(payload) {
+export function filterPokeByType(payload) {
     console.log(payload);
     return {
-        type:FILTER_BY_STATUS,
+        type:FILTER_BY_TYPE,
         payload: payload,
     }
 }
@@ -76,7 +76,7 @@ export function getTypes() {
     return function(dispatch){
         return axios.get(`http://localhost:3001/types`)
         .then(res => {
-            console.log(res.data);
+            console.log("se cargaron los tipos de pokemon")
             dispatch({
                     type: GET_TYPES,
                     payload: res.data,

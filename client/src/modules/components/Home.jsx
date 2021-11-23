@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterPokeByStatus, getPokemons, filterPokeByOrigin, OrderByName, OrderByForce } from '../../redux/actions';
+import {  getPokemons, filterPokeByOrigin, OrderByName, OrderByForce, filterPokeByType } from '../../redux/actions';
 import SearchBar from './SearchBar';
 import { Link } from 'react-router-dom';
 import Paginado from './Paginado';
@@ -57,7 +57,7 @@ export default function Home() {
     }
     function handleFilteredState(e){
         e.preventDefault();
-        dispatch(filterPokeByStatus(e.target.value));
+        dispatch(filterPokeByType(e.target.value));
     }
     function handleFilteredOrigin(e){
         e.preventDefault();
@@ -95,7 +95,7 @@ export default function Home() {
         
     return (
         <div>
-            <Link to='/pokemons'>Crear personaje</Link>
+            <Link to='/crear'>Crear personaje</Link>
             <p>Home Pokemon</p>
             <button onClick={e=>{handleClick(e)}}>Todos</button>
             <div>
