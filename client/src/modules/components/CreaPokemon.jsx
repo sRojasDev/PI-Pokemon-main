@@ -7,6 +7,7 @@ import "./creaPoke.css";
 
 export default function CreaPokemon(){
     const dispach= useDispatch();
+    const history= useHistory();
     const tipos= useSelector((state)=> state.tipos);
     const initialInput={
         nombre:"",
@@ -42,7 +43,7 @@ export default function CreaPokemon(){
                 break;
             case 'imagen':
                 console.log("entró en case imagen verificar aquí");
-                setError('Supongamos que mandaste cualquiera la imagen');
+                //setError('Supongamos que mandaste cualquiera la imagen');
                 break;
             default:
                     console.log("entró al default");
@@ -103,12 +104,20 @@ export default function CreaPokemon(){
             <input type="checkbox" value={tip.name}  name={tip.name} onChange={e=>handleCheck(e)} /> 
             </label> )})  
     }
+    function handleSubmit(e){
+        e.preventDefault();
+        console.log(input);
+        dispach(postPokemon(input));
+        alert("Buen trabajo! Se creó tu pokémon correctamente");
+        setInput(initialInput);
+        history.push('/pokemons');
+    }
 
     return (
         <div>
             <Link to={"/pokemons"} > <button>Volver</button></Link>
             <h2>Creá tu Pokémon</h2>
-            <form action="">
+            <form onSubmit={e=>{handleSubmit(e)}}>
                 <div>
                     <label htmlFor="">Nombre:</label>
                     <input type="text" value={input.nombre}  name="nombre" placeholder="totoro" 
