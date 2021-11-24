@@ -20,7 +20,7 @@ async function Detail(arr, stop= 40,next) {
                     id: el.data.id,
                     vida:el.data.stats[0].base_stat,
                     fuerza:el.data.stats[1].base_stat,
-                    defenza:el.data.stats[2].base_stat,
+                    defensa:el.data.stats[2].base_stat,
                     velocidad:el.data.stats[5].base_stat,
                     altura: el.data.height,   //imagen animada: pokemon.sprites.versions["generation-v"]["black-white"].animated.front_default
                     peso: el.data.weight,

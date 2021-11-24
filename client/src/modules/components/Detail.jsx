@@ -1,31 +1,33 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getPokeById } from '../../redux/actions'
+import { getPokeById , getPokemons} from '../../redux/actions'
 import {useHistory} from "react-router";
 import RenderError from './renderError';
+import { useParams } from 'react-router';
+export default function Detail(){
 
-export default function Detail(props){
+    const {id}= useParams();
+    console.log(id);
 
     const history= useHistory();
     const dispatch= useDispatch();
-    const pokemon = useSelector(state=>state.pokemons);
+    const pokemon = useSelector(state=>state.detail);
     const notFound= useSelector(state => state.error);
+
     useEffect(() => {
-        dispatch(getPokeById(props.match.params.name));      
-    },[dispatch,props.match.params.name])
+        dispatch(getPokeById(id));      
+    },[dispatch])
 
 
 
-    function handleClick() {
-        history.push('/pokemons');
-        //dispatch(getPokemons(""))
-    }
-    if (notFound){ return(
+    
+    while (!pokemon.nombre){ return(
         <div>
-            <p>Home Pokemon</p>
-            <button onClick={e=>{handleClick(e)}}>Todos</button>
-            
+            <p>Detalle Pokemon</p>
+            <Link to={"/pokemons"} >
+            <button >Todos</button>
+            </Link>
             <div>
             <RenderError/>
             </div> 
@@ -35,26 +37,22 @@ export default function Detail(props){
     return (
 
         <div>
-            <Link to="/home">
-                <button onClick={handleClick}>Volver</button>
-            </Link>
+            <Link to={"/pokemons"} > <button>Volver</button></Link>
         
                 <div>
                     <div>
-                        <h2>{pokemon.nombre}</h2>
+                        <h2>{pokemon.nombre || ""}</h2>
                     </div>
                     <div>
-                        <img src={pokemon.img} alt={pokemon.nombre} />
+                        <img src={pokemon.imagen } alt={pokemon.nombre|| ""} />
                     </div>
                     <div>          
                         <div>
-                            ID: {pokemon.id_pokemon}
+                            ID: {pokemon.id}
                         </div>           
                         <div>
                             TIPO/s:{
-                                pokemon.tipos.map((e,i)=>{
-                                return <p key={i}> {e}</p> 
-                                })
+                                pokemon.tipos
                             }
                         </div>
                         <div>
@@ -62,16 +60,16 @@ export default function Detail(props){
                         </div>
                         <div>
                             <p>
-                            vida: {pokemon.habilidades.vida}
+                            vida: {pokemon.vida}
                             </p>
                             <p>
-                            fuerza: {pokemon.habilidades.fuerza}
+                            fuerza: {pokemon.fuerza}
                             </p>
                             <p>
-                            defensa: {pokemon.habilidades.defensa}                                
+                            defensa: {pokemon.defensa}                                
                             </p>
                             <p>
-                            velocidad: {pokemon.habilidades.velocidad}
+                            velocidad: {pokemon.velocidad}
                             </p>
                         </div>
                         <div>

@@ -9,7 +9,7 @@ export const ORDER_BY_FORCE="ORDER_BY_FORCE";
 export const GET_POKE_BY_NAME="GET_POKE_BY_NAME";
 export const POST_POKEMON="POST_POKEMON";
 export const GET_TYPES="GET_TYPES";
-
+export const GET_POKE_BY_ID="GET_POKE_BY_ID";
 
 export function getPokemons() {
     console.log("se despacho la accion get Pokemons");
@@ -88,16 +88,21 @@ export function getTypes() {
 
 export function getPokeById(id) {
     console.log("se despacho accion get por id");
-    return function(dispatch){
-        return axios.get(`http://localhost:3001/pokemons/${id}`)
+    return async function(dispatch){
+        const respuesta= await axios.get(`http://localhost:3001/pokemons/${id}`)
+        console.log(respuesta.data);
+        dispatch({
+            type: GET_POKE_BY_ID,
+            payload: respuesta.data,
+        })       
+    }
+}
+/* return axios.get(`http://localhost:3001/pokemons/${id}`)
         .then(res => {
             console.log(res);
             dispatch({
-                    type: GET_POKE_BY_NAME,
+                    type: GET_POKE_BY_ID,
                     payload: res.data,
                 })
             })
-        .catch( err => console.log(err));    
-            
-    }
-}
+        .catch( err => console.log(err));*/

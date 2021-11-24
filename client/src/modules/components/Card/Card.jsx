@@ -1,13 +1,21 @@
 import React from "react";
 import './card.css';
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getPokeById } from "../../../redux/actions";
 
 
 
 export default function Card({nombre, tipos, imagen, propio,key, id}){
+   const dispatch=useDispatch();
+    function handleClik(){
+        dispatch(getPokeById(id));
+        console.log("se despachó get ID desde card");
+    }
+
     if(!propio){
     return (
-        <Link to={`pokemons/${id}`}>
+        <Link to={`pokemons/${id}`} onClick={(e)=>handleClik(e)} >
         <div className="targeta" key={key} > 
             <img src={imagen} alt="./pokeball.png" className="card-img" />
             <h3>{nombre}</h3>
@@ -18,7 +26,7 @@ export default function Card({nombre, tipos, imagen, propio,key, id}){
     }
     if (propio)
         return(
-            <Link to={`pokemons/${key}`}>
+            <Link to={`pokemons/${key}`} onClick={(e)=>handleClik(e)} >
             <div className="targeta" key={key} >
                 <img src={imagen} alt="./pokeball.png"/>
                 <h3>{nombre}</h3>
