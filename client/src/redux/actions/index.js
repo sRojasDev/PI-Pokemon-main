@@ -85,3 +85,19 @@ export function getTypes() {
         .catch( err => console.log(err));        
     }
 }
+
+export function getPokeById(id) {
+    console.log("se despacho accion get por id");
+    return function(dispatch){
+        return axios.get(`http://localhost:3001/pokemons/${id}`)
+        .then(res => {
+            console.log(res);
+            dispatch({
+                    type: GET_POKE_BY_NAME,
+                    payload: res.data,
+                })
+            })
+        .catch( err => console.log(err));    
+            
+    }
+}

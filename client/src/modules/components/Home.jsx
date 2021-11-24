@@ -38,10 +38,10 @@ export default function Home() {
     }
 
 
-    // useEffect(()=>{
-    //     dispatch(getPokemons());
-    //     console.log("se ejecutó el primer useEffect");
-    // }, [])
+    useEffect(()=>{
+        dispatch(getPokemons());
+        console.log("se ejecutó el primer useEffect");
+    }, [])
     useEffect(()=>{
         variacion(currentPage);
         console.log("se ejecutó el segundo efect");
@@ -80,13 +80,7 @@ export default function Home() {
         <div>
             <p>Home Pokemon</p>
             <button onClick={e=>{handleClick(e)}}>Todos</button>
-            <div>
-                <select name="origen" id="origen" onChange={e => handleFilteredOrigin(e)} >
-                    <option value="All">Todos</option>
-                    <option value="propio">Creados</option>
-                    <option value="existente">Existentes</option>
-                </select>
-            </div>
+            
             <div>
             <RenderError/>
             </div> 
