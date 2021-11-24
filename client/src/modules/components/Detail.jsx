@@ -22,7 +22,7 @@ export default function Detail(){
 
 
     
-    while (!pokemon.nombre){ return(
+    while (!pokemon){ return(
         <div>
             <p>Detalle Pokemon</p>
             <Link to={"/pokemons"} >
