@@ -3,3 +3,33 @@
     grid-template-columns: repeat(auto-fit,minmax(300px,6fr));
     text-align: center;
 }
+.lista1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:flex-start;
+    list-style:none;
+}
+.contLista{
+    display: flex;
+    max-width: 100em;
+    margin: auto;
+    justify-content: center;
+}
+.btnDiscret{
+    border-radius: 10px;
+    padding: 5px;
+    background:#fff; 
+    color: rgb(15, 95, 95);
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+.title{
+    color:rgb(253, 250, 46);
+    background:rgb(5, 5, 41, 0.81);
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.8em;
+    font-weight: bold;
+}

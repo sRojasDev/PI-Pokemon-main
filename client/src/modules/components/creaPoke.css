@@ -1,8 +1,50 @@
 .danger {
     border: red 1px solid;
 }
-span {
-    position: fixed;
+.error{
+    position: absolute;
+    top: 290px; left: 660px;
+    color:rgb(56, 226, 13);
+    /* color:deepskyblue;  */
+    font-family: 'Arial Narrow Bold', sans-serif;
+}
+.form {
+    display: grid  ;
+    background: rgb(5, 5, 41, 0.81);
+    color: #fff;
+    text-decoration: none;
+    max-width: 40em;
+    align-items: center;
+    margin: auto;
+    border: #000 solid 3px; 
+    border-radius: 15px;
+    flex-direction: row;
+    /* position: absolute;
     top: 10px;
     left: 10px;
+ */
+}
+.tiposChecks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(200px,6fr));
+    align-items: flex-start; 
+    text-align:start;
+    align-items:flex-start;
+    justify-content: center;
+}
+.btn{
+    border-radius: 10px;
+    padding: 10px;
+    background:rgb(226, 223, 13); 
+    color: rgb(15, 95, 95);
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+.inputs{
+    display: grid;
+    text-align:end;
+    align-items:flex-start;
+    justify-content: center;
 }

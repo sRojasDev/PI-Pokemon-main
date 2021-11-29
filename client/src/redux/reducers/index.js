@@ -1,4 +1,4 @@
-import { FILTER_BY_ORIGIN, FILTER_BY_TYPE, GET_POKEMONS, GET_POKE_BY_ID, GET_POKE_BY_NAME, GET_TYPES, ORDER_BY_FORCE, ORDER_BY_NAME, POST_POKEMON } from "../actions";
+import { FILTER_BY_ORIGIN, FILTER_BY_TYPE, GET_POKEMONS, GET_POKE_BY_ID, GET_POKE_BY_NAME, GET_TYPES, ORDER_BY_FORCE, ORDER_BY_NAME, POST_POKEMON, SEARCH_IN_MY_STATE } from "../actions";
 
 const initialState={
     pokemons:[],
@@ -42,20 +42,20 @@ function rootReducer( state =initialState, action){
                 ...state,
                 detail: action.payload,
             }}
-        case FILTER_BY_TYPE:
-            const allPokemons =state.allPokemons;
-            const stateFilter= action.payload === 'All'? allPokemons : allPokemons.filter(el=> {
-                let elem1=""
-                if(el.hasOwnProperty("ofDB")) {  
-                    if (el.tipos[0].name===action.payload ||el.tipos[1].name===action.payload) {elem1= el;}
-                }  
-                if(el.tipos.includes(action.payload)) return elem1= el;
-                return elem1;
-            })
-            return {
-                ...state,
-                pokemons:stateFilter,
-            }
+            case FILTER_BY_TYPE:
+                const allPokemons =state.allPokemons;
+                const stateFilter= action.payload === 'All'? allPokemons : allPokemons.filter(el=> {
+                    let elem1=""
+                    if(el.hasOwnProperty("ofDB")) {  
+                        if (el.tipos[0].name===action.payload ||el.tipos[1].name===action.payload) {elem1= el;}
+                    }  
+                    if(el.tipos.includes(action.payload)) return elem1= el;
+                    return elem1;
+                })
+                return {
+                    ...state,
+                    pokemons:stateFilter,
+                }
         case FILTER_BY_ORIGIN:
             const allPokemons2 =state.allPokemons;
             const stateFiltered= action.payload === 'All'? allPokemons2 : allPokemons2.filter(el=> {
@@ -114,6 +114,17 @@ function rootReducer( state =initialState, action){
             return{
                 ...state,
                 tipos: action.payload,
+            }
+        case SEARCH_IN_MY_STATE:
+            const allPokemons3 =state.allPokemons;
+            const stateFiltered2= allPokemons3.filter(el=> {
+                let elem5=""
+                if(action.payload.key==="nombre" && el.nombre===action.payload.value)  elem5= el;
+                return elem5;
+            });
+            return {
+                ...state,
+                detail:stateFiltered2,
             }
 
         default:

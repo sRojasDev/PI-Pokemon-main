@@ -10,6 +10,7 @@ export const GET_POKE_BY_NAME="GET_POKE_BY_NAME";
 export const POST_POKEMON="POST_POKEMON";
 export const GET_TYPES="GET_TYPES";
 export const GET_POKE_BY_ID="GET_POKE_BY_ID";
+export const SEARCH_IN_MY_STATE="SEARCH_IN_MY_STATE";
 
 export function getPokemons() {
     console.log("se despacho la accion get Pokemons");
@@ -97,6 +98,15 @@ export function getPokeById(id) {
         })       
     }
 }
+
+export function searchOnMyState(payload) {
+    console.log(payload);
+    return {
+        type:SEARCH_IN_MY_STATE,
+        payload: payload,
+    }
+}
+
 /* return axios.get(`http://localhost:3001/pokemons/${id}`)
         .then(res => {
             console.log(res);

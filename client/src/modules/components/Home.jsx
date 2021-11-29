@@ -8,6 +8,7 @@ import Paginado from './Paginado';
 import CardsPoke from './CardsPoke';
 import RenderError from './renderError';
 import "./home.css";
+import "./creaPoke.css";
 
 
 
@@ -88,10 +89,10 @@ export default function Home() {
     ) }
         
     return (
-        <div>
+        <div> <div className="form">
             <Link to='/crear'>Crear personaje</Link>
-            <p>Home Pokemon</p>
-            <button onClick={e=>{handleClick(e)}}>Todos</button>
+            <p className="title">Home Pokemon</p>
+            <button onClick={e=>{handleClick(e)}} className="btnDiscret">Todos</button>
             <div>
                 <select name="origen" id="origen" onChange={e => handleFilteredOrigin(e)} >
                     <option value="All">Todos</option>
@@ -101,7 +102,7 @@ export default function Home() {
             </div>
             <div>
                 <select name="tipos" id="tipos" onChange={e => handleFilteredState(e)}>
-                    <option value="All">Todos los Tipos</option>
+                    <option value="All">Todos los tipos</option>
                     <option value="normal">🐾 Normal</option>
                     <option value="fighting">🥊 Pelea</option>
                     <option value="flying">🪁 Volador</option>
@@ -114,7 +115,7 @@ export default function Home() {
                     <option value="fire">🔥 Fuego</option>
                     <option value="water">💧 Agua</option>
                     <option value="grass">🍃 Hierba</option>
-                    <option value="electric">⚡ Electrico</option>
+                    <option value="electric">⚡ Eléctrico</option>
                     <option value="psychic">👁️‍🗨️ Psíquico</option>
                     <option value="ice">❄️ Hielo</option>
                     <option value="dragon">🐉 Dragón</option>
@@ -126,15 +127,16 @@ export default function Home() {
                 </div>
                 <div>
                     <select name="Alfabetico" id="Alfabetico"  onChange={e=>handleOrderAlf(e)}>
-                        <option value="asc"> Acendente a-Z </option>
-                        <option value="des"> Decendente z-A </option>
+                        <option value="asc"> Ascendente A-Z </option>
+                        <option value="des"> Descendente Z-A </option>
                     </select>
                 </div>
                 <div>
                     <select name="OrdenFuerza" id="OrdenFuerza"  onChange={e=>handleOrderForce(e)}>
-                        <option value="asc"> Acendente - Por fuerza </option>
-                        <option value="des"> Decendente - Por fuerza </option>
+                        <option value="asc"> Ascendente - Por fuerza </option>
+                        <option value="des"> Descendente - Por fuerza </option>
                     </select>
+                </div>
                 </div>
                 <Paginado pokemonsPerPage={pokemonsPerPage} allPokemons={ allPokemons &&allPokemons.length} paginado={paginado}></Paginado>
                 <SearchBar/>

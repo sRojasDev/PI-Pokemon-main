@@ -11,7 +11,8 @@ module.exports = (sequelize) => {
     },
     imagen: {
       type: DataTypes.STRING,
-      defaultValue:"https://i.pinimg.com/originals/8f/89/24/8f89244bd8cea5358fe8484bceb34332.jpg"
+      allowNull: true,
+      //defaultValue:"https://i.pinimg.com/originals/8f/89/24/8f89244bd8cea5358fe8484bceb34332.jpg",
     },
     id: {
       type: DataTypes.UUID,
