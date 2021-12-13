@@ -28,7 +28,7 @@ export default function Card({nombre, tipos, imagen, propio,key, id}){
         return(
             <Link to={`pokemons/${nombre}?propio=true`} onClick={(e)=>handleClik(e)} >
             <div className="targeta" key={key} >
-                <img src={imagen} alt="./pokeball.png"/>
+                <img src={imagen} />
                 <h3>{nombre}</h3>
                 <h4>{tipos.map(el=>el.name)}</h4>
             </div>

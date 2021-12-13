@@ -143,6 +143,7 @@ export default function CreaPokemon(){
         e.preventDefault();
         console.log(input);
         let ok= validarSubmit(input, true);
+        if (ok) console.log(`se cargó img= ${input.imagen}`);
         (ok?todobien():alert("Para cargar un nuevo pokemon completa sus datos, la url de imagen puede omitirse"));
         
     }

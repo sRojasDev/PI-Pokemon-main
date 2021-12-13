@@ -52,27 +52,26 @@ function getPokemonByName(req,res,next){
 
 async function addPokemon(req, res, next){
     freno++;
-    let { nombre,
-        vida,
-        fuerza,
-        defensa,
-        velocidad,
-        altura,
-        peso,
-        tipos,
-    }= req.body;
+    // let { nombre, imagen, vida, fuerza, defensa, velocidad, altura, peso, tipos,
+    // }= req.body;
+    const objPoke={
+            nombre: req.body.nombre,
+            imagen: req.body.imagen,
+            vida: req.body.vida,
+            fuerza: req.body.fuerza,
+            defensa: req.body.defensa,
+            velocidad: req.body.velocidad,
+            altura: req.body.altura,
+            peso: req.body.peso,
+        }
+        if (!objPoke.imagen){ objPoke.imagen= "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/132.gif" }
+
     let creado= await Pokemon.create({
-        nombre,
-        vida,
-        fuerza,
-        defensa,
-        velocidad,
-        altura,
-        peso,
+        ...objPoke,
         id: uuidv4(),
         })
     let tiposBd= await Tipo.findAll({
-        where: {name: tipos}
+        where: {name: req.body.tipos}
     }).catch(err=>next(err));
     
     creado.addTipo(tiposBd);
