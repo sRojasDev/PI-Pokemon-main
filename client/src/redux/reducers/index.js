@@ -122,9 +122,10 @@ function rootReducer( state =initialState, action){
                 if(action.payload.key==="nombre" && el.nombre===action.payload.value)  elem5= el;
                 return elem5;
             });
+            const detalle= stateFiltered2[0];
             return {
                 ...state,
-                detail:stateFiltered2,
+                detail:detalle,
             }
 
         default:

@@ -15,14 +15,17 @@ export default function Detail(){
     console.log(locat);
     console.log(id);
     const dispatch= useDispatch();
-    const pokemon = useSelector(state=>state.detail);
+    const detail = useSelector(state=>state.detail);
     const notFound= useSelector(state => state.error);
     useEffect(() => {
-        console.log(id);
-    },[pokemon])
+        console.log("pasó por el primer efect escucha detail" );
+    },[detail])
     useEffect(() => {
         dispatch(getPokeById(id));
     },[dispatch])
+    useEffect(() => {
+        console.log("llegó al segundo efect")
+    },[detail])
 
     if(locat.search){
     const query = new URLSearchParams(locat.search);
@@ -34,57 +37,6 @@ export default function Detail(){
         value:id,
     });
     
-    
-    // return(
-
-    //     <div className="form" >
-    //         <Link to={"/pokemons"} > <button>Volver</button></Link>
-        
-    //             <div>
-    //                 <div>
-    //                     <h2>{pokemon.nombre || ""}</h2>
-    //                 </div>
-    //                 <div>
-    //                     <img src={pokemon.imagen } alt={pokemon.nombre|| ""} />
-    //                 </div>
-    //                 <div>          
-    //                     <div>
-    //                         ID: {pokemon.id}
-    //                     </div>           
-    //                     <div>
-    //                         TIPO/s:{
-    //                             pokemon.tipos
-    //                         }
-    //                     </div>
-    //                     <div>
-    //                         ESTADÍSTICAS:
-    //                     </div>
-    //                     <div>
-    //                         <p>
-    //                         vida: {pokemon.vida}
-    //                         </p>
-    //                         <p>
-    //                         fuerza: {pokemon.fuerza}
-    //                         </p>
-    //                         <p>
-    //                         defensa: {pokemon.defensa}                                
-    //                         </p>
-    //                         <p>
-    //                         velocidad: {pokemon.velocidad}
-    //                         </p>
-    //                     </div>
-    //                     <div>
-    //                         <p>altura: {pokemon.altura}</p>
-    //                         <p> peso: {pokemon.peso}</p>
-
-    //                     </div>                    
-    //                 </div>
-    //             </div>
-            
-    //     </div>
-    // )
-
-
     }
     
     // useEffect(() => {
@@ -98,7 +50,7 @@ export default function Detail(){
 
 
     
-    while (!pokemon){ return(
+    while (!detail){ return(
         <div>
             <p>Detalle Pokemon</p>
             <Link to={"/pokemons"} >
@@ -117,41 +69,38 @@ export default function Detail(){
         
                 <div>
                     <div>
-                        <h2>{pokemon.nombre || ""}</h2>
+                        <h2>{detail.nombre || detail[0].nombre }</h2>
                     </div>
                     <div>
-                        <img src={pokemon.imagen } alt={pokemon.nombre|| ""} />
+                        <img src={detail.imagen || detail[0].imagen } alt={detail.nombre|| ""} />
                     </div>
                     <div>          
                         <div>
-                            ID: {pokemon.id}
+                            ID: {detail.id || detail[0].id}
                         </div>           
                         <div>
-                            TIPO/s:{
-                                pokemon.tipos
-                            }
+                            TIPO/s:{detail.tipos || detail[0].tipos}
                         </div>
                         <div>
                             ESTADÍSTICAS:
                         </div>
                         <div>
                             <p>
-                            vida: {pokemon.vida}
+                            vida: {detail.vida || detail[0].vida}
                             </p>
                             <p>
-                            fuerza: {pokemon.fuerza}
+                            fuerza: {detail.fuerza || detail[0].fuerza}
                             </p>
                             <p>
-                            defensa: {pokemon.defensa}                                
+                            defensa: {detail.defensa || detail[0].defensa}                                
                             </p>
                             <p>
-                            velocidad: {pokemon.velocidad}
+                            velocidad: {detail.velocidad || detail[0].velocidad }
                             </p>
                         </div>
                         <div>
-                            <p>altura: {pokemon.altura}</p>
-                            <p> peso: {pokemon.peso}</p>
-
+                            <p>altura: {detail.altura || detail[0].altura}</p>
+                            <p> peso: {detail.peso || detail[0].peso}</p>
                         </div>                    
                     </div>
                 </div>

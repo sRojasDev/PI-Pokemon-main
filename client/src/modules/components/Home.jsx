@@ -23,8 +23,14 @@ export default function Home() {
     const [pokemonsPerPage, setPokemonsPerPage]= useState(12);
     const[order, setOrder]=useState("");
     const indexOfLast = currentPage * pokemonsPerPage; //  
-    const indexOfFirst = indexOfLast - pokemonsPerPage;
-    const currentPokemons= allPokemons && allPokemons.slice(indexOfFirst,indexOfLast);
+    const indexOfFirst = indexOfLast - (pokemonsPerPage);
+    let currentPokemons=[] 
+    if (currentPage ===1){
+        currentPokemons= allPokemons && allPokemons.slice((indexOfFirst),indexOfLast);
+    } else{
+        currentPokemons= allPokemons && allPokemons.slice((indexOfFirst-3),(indexOfLast-3));
+    }
+    
     
     const variacion= (currentPage)=>{
         let cantidad=12;

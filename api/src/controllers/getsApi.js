@@ -58,7 +58,7 @@ async function asyncGetApi( urlpath= ALL_POKEMONS_API, dato = null, next) {
                         }})
             let complemento= await asyncGetAux(info.link);
             const arreglo= info.result.concat(complemento);
-            let freno= 40 - dato;
+            let freno= 40 
             return await Detail(arreglo, freno);
 
         case POK_PARAMS_API:

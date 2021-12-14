@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { getTypes, postPokemon } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import "./creaPoke.css";
-export const arrTipos=["Normal" ,"Pelea" , "Volador" , "Veneno" , "Tierra", "Roca", "Insecto", "Fantasma", "Acero", "Fuego", "Agua" , "Hierba", "Eléctrico" , "Psíquico", "Hielo", "Dragón", "Oscuro", "Hada", "Desconocido", "Sombra"];
+import { arrTipos, arrTiposLogo } from "../const";
+
 function validarSubmit(input, sub=false){
     let errors = {};
     if(sub && !input.nombre ) { 
