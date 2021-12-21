@@ -44,14 +44,34 @@ function rootReducer( state =initialState, action){
             }}
             case FILTER_BY_TYPE:
                 const allPokemons =state.allPokemons;
-                const stateFilter= action.payload === 'All'? allPokemons : allPokemons.filter(el=> {
-                    let elem1=""
-                    if(el.hasOwnProperty("ofDB")) {  
-                        if (el.tipos[0].name===action.payload ||el.tipos[1].name===action.payload) {elem1= el;}
-                    }  
-                    if(el.tipos.includes(action.payload)) return elem1= el;
-                    return elem1;
-                })
+                console.log(action.payload);
+                let stateFilter=[];
+                switch (action.payload) {
+                    case 'All':
+                        stateFilter=allPokemons;
+                        break;
+                    default:
+                        stateFilter= allPokemons.filter(el=>{
+                            let elemento="";
+                            if(el.hasOwnProperty('ofDB')){
+                                if(el.tipos && el.tipos[0].name===action.payload)  elemento= el;
+                                if(el.tipos[1] && el.tipos[1].name === action.payload) elemento=el; 
+                            }
+                            if(!el.hasOwnProperty('ofDB')){
+                                if (el.tipos.includes(action.payload))  elemento= el;
+                            }
+                            return elemento;
+                        })
+                        break;
+                }
+                // const stateFilter= action.payload === 'All'? allPokemons : allPokemons.filter(el=> {
+                //     let elem1=""
+                //     if(el.hasOwnProperty("ofDB")) {  
+                //         if (el.tipos[0] && (el.tipos[0].name===action.payload || el.tipos[1].name===action.payload)) {elem1= el;}
+                //     }  
+                //     if (el.tipos.includes(action.payload)) return elem1= el;
+                //     return elem1;
+                // })
                 return {
                     ...state,
                     pokemons:stateFilter,

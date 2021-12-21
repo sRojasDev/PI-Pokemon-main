@@ -11,8 +11,6 @@ export default function LandingPage() {
         console.log("se ejecutó el primer useEffect en landing Page");
     }, [])
 
-    
-    
 
     return (
         <div>

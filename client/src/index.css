@@ -9,7 +9,8 @@ body {
   background-size:auto;
   background-position: center;
   background-attachment:fixed;
-  background-image: url("./backpoke.jpg");
+  background-image: url("./modules/imgs/backpoke.jpg");
+  
 }
 
 code {

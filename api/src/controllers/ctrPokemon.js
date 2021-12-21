@@ -64,7 +64,7 @@ async function addPokemon(req, res, next){
             altura: req.body.altura,
             peso: req.body.peso,
         }
-        if (!objPoke.imagen){ objPoke.imagen= "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/132.gif" }
+        if (!objPoke.imagen){ objPoke.imagen="https://i0.wp.com/eltallerdehector.com/wp-content/uploads/2021/04/Stitch-Pikachu-Png.png?resize=860%2C860&ssl=1"  }//"http://assets.stickpng.com/images/5f39542c1886540004319279.png" }
 
     let creado= await Pokemon.create({
         ...objPoke,

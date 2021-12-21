@@ -1,12 +1,14 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {  getPokemons, filterPokeByOrigin, OrderByName, OrderByForce, filterPokeByType } from '../../redux/actions';
+import {  getPokemons, filterPokeByOrigin, OrderByName, OrderByForce, filterPokeByType, getTypes } from '../../redux/actions';
 import SearchBar from './SearchBar';
 import { Link } from 'react-router-dom';
 import Paginado from './Paginado';
+import Logo from './Logo';
 import CardsPoke from './CardsPoke';
 import RenderError from './renderError';
+import styled from 'styled-components';
 import "./home.css";
 import "./creaPoke.css";
 
@@ -16,8 +18,10 @@ export default function Home() {
     const dispatch = useDispatch();
     const allPokemons = useSelector((state)=>state.pokemons);
     const notFound=useSelector((state)=>state.error);
-    // let arrPrimeros=allPokemons.slice(0,9);
-    // let arrRestantes=allPokemons.slice(9); 
+    
+    useEffect(()=>{
+        dispatch(getTypes());
+    }, [])
     
     const [currentPage, setCurrentPage]= useState(1);
     const [pokemonsPerPage, setPokemonsPerPage]= useState(12);
@@ -93,11 +97,27 @@ export default function Home() {
             </div> 
         </div>
     ) }
+    const CrearLink= styled.h3`
+    text-decoration: none;
+    max-width: 16em;
+    margin: auto;
+    &:hover{
+        color: rgb(15, 95, 95);
+    }
+    `;
+
+
         
     return (
-        <div> <div className="form">
-            <Link to='/crear'>Crear personaje</Link>
-            <p className="title">Home Pokemon</p>
+        <div> <Logo/>
+            <p className="title"> <h1> Pokémon App </h1></p>
+            
+            <nav className="Nav">
+            <CrearLink>   
+            <Link to='/crear' className='blanco'>Crear personaje</Link>
+            </CrearLink>
+            <SearchBar/>
+            </nav>
             <button onClick={e=>{handleClick(e)}} className="btnDiscret">Todos</button>
             <div>
                 <select name="origen" id="origen" onChange={e => handleFilteredOrigin(e)} >
@@ -143,7 +163,8 @@ export default function Home() {
                         <option value="des"> Descendente - Por fuerza </option>
                     </select>
                 </div>
-                </div>
+
+                
                 <Paginado pokemonsPerPage={pokemonsPerPage} allPokemons={ allPokemons &&allPokemons.length} paginado={paginado}></Paginado>
                 <SearchBar/>
                 <div className="grid-fluid" >

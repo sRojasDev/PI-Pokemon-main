@@ -16,15 +16,12 @@
     margin: auto;
     justify-content: center;
 }
-.btnDiscret{
-    border-radius: 10px;
-    padding: 5px;
-    background:#fff; 
-    color: rgb(15, 95, 95);
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 0px;
+.Nav{
+    background-color:	rgba(153, 50, 204, 0.781); 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px,2fr));
+    align-items: center;
+
 }
 .title{
     color:rgb(253, 250, 46);
@@ -33,3 +30,11 @@
     font-size: 1.8em;
     font-weight: bold;
 }
+.blanco{
+    color:#fff;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    
+}
+
