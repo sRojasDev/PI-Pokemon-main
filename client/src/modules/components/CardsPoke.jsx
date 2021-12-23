@@ -11,7 +11,7 @@ export default function CardsPoke({array, curretP}){
         return <Fragment key={pok.id} >
         
         
-        <Card nombre={pok.nombre} imagen={pok.imagen} tipos={pok.tipos} key={pok.id} propio={pok.hasOwnProperty('ofDB')} id={pok.id} />
+        <Card nombre={pok.nombre} imagen={pok.imagen} tipos={pok.tipos} key={pok.id} propio={pok.hasOwnProperty('ofDB')} id={pok.id}  gif={pok.imagengif || ""} fondo={pok.imgFondo || ""} />
         
     </Fragment>
     })

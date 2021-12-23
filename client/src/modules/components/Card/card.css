@@ -1,9 +1,22 @@
 
 
 .targeta {
-    background: rgb(5, 5, 41, 0.83);
+    background: rgb(5, 5, 41, 0.88);
     color: #fff;
     text-decoration: none;
+    background-size: inherit;
+    border-radius: 3px;
+}
+.targeta:hover{
+    color:yellow;
     
 }
 
+.marco:hover{
+    
+    background-position: 30% 30%;
+    width: 80%;
+    height: 82%;
+    transition: all 2s ease-in;
+    
+} 

@@ -21,8 +21,7 @@ import sombra from "./imgs/sombra.png";
 
 
 export default {
-    normal: paw,
-    grass: leaf,
+    "normal": paw,
     "poison": poison,
     "fighting": box,
     "flying": plume,
@@ -30,8 +29,9 @@ export default {
     "rock":roca,
     "bug": bug,
     "ghost": ghost,
+    "grass": leaf,
     "steel": acero,
-    fire: fire,
+    "fire": fire,
     "water": agua,
     "electric":bolt ,
     "psychic": eye,
